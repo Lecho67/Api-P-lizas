@@ -31,14 +31,18 @@ public class UsuarioController {
         return usuarioRepository.findAll();
     }
 
-    @GetMapping("/api/usuario/polizas/{id}")
 
-    public ResponseEntity<List<CompraPoliza>> findAll(@PathVariable("id") Long id){
 
-        Optional<Usuario> usuario = usuarioRepository.findById(id);
-        if(usuario.isEmpty()){
-            ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok(usuario.get().getCompraPolizas());
-    }
+
+//    @GetMapping("/api/usuario/polizas/{id}")
+//
+//    public ResponseEntity<List<CompraPoliza>> findAll(@PathVariable("id") Long id){
+//
+//        Optional<Usuario> usuario = usuarioRepository.findById(id);
+//        if(usuario.isEmpty()){
+//            return ResponseEntity.notFound().build();
+//        }
+//        return ResponseEntity.ok(usuario.get().getCompraPolizas());
+//    }
+
 }

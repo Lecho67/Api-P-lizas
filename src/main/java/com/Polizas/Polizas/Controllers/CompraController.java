@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -41,9 +42,14 @@ public class CompraController {
 
             CompraPoliza savedCompraPoliza = compraPolizaRepository.save(compraPoliza);
             return ResponseEntity.status(HttpStatus.CREATED).body(savedCompraPoliza);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        } else return ResponseEntity.notFound().build();
+    }
+
+
+    @GetMapping("/api/poliza/{id}")
+
+    public List<Poliza> findPolizaByUserId(@PathVariable("id") Long id){
+        return compraPolizaRepository.findPolizaByUserId(id);
     }
 
 }
