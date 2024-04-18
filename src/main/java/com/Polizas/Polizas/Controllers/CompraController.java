@@ -25,7 +25,7 @@ public class CompraController {
 
     @Autowired
     private UsuarioRepository usuarioRepository;
-
+    // 3.Recurso: Compra de Póliza
     @PostMapping("/api/compra-polizas")
     public ResponseEntity<CompraPoliza> createCompraPoliza(@RequestParam Long polizaId, @RequestParam Long usuarioId, @RequestBody CompraPoliza request) {
         Optional<Poliza> optionalPoliza = polizaRepository.findById(polizaId);
@@ -45,7 +45,7 @@ public class CompraController {
         } else return ResponseEntity.notFound().build();
     }
 
-
+    // 4.Recurso: Detalles de Póliza por Usuario
     @GetMapping("/api/poliza/{id}")
 
     public List<Poliza> findPolizaByUserId(@PathVariable("id") Long id){

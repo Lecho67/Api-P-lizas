@@ -23,6 +23,8 @@ public class PolizaController {
 
     }
 
+    // 2.Recurso: Pólizas de Seguro
+
     @GetMapping("/api/polizas")
 
     public List<Poliza> findAll(){

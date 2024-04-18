@@ -25,6 +25,8 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioRepository.save(usuario));
     }
 
+    // 1.Recurso: Usuarios
+
     @GetMapping("/api/usuarios")
 
     public List<Usuario> findAll(){
