@@ -1,7 +1,7 @@
 package com.Polizas.Polizas.Controllers;
 
 import com.Polizas.Polizas.Persistence.Entities.Poliza;
-import com.Polizas.Polizas.Persistence.Respositories.PolizaRepository;
+import com.Polizas.Polizas.Persistence.Repositories.PolizaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

@@ -1,17 +1,13 @@
 package com.Polizas.Polizas.Controllers;
 
 
-import com.Polizas.Polizas.Persistence.Entities.CompraPoliza;
 import com.Polizas.Polizas.Persistence.Entities.Usuario;
-import com.Polizas.Polizas.Persistence.Respositories.UsuarioRepository;
-import jakarta.annotation.security.PermitAll;
-import org.apache.coyote.Response;
+import com.Polizas.Polizas.Persistence.Repositories.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 public class UsuarioController {
@@ -34,7 +30,7 @@ public class UsuarioController {
     }
 
 
-
+}
 
 //    @GetMapping("/api/usuario/polizas/{id}")
 //
@@ -47,4 +43,4 @@ public class UsuarioController {
 //        return ResponseEntity.ok(usuario.get().getCompraPolizas());
 //    }
 
-}
+
