@@ -1,29 +1,38 @@
 package com.Polizas.Polizas.Services;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Service;
+import redis.clients.jedis.Jedis;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-@Service
 public class RedisService {
+    String host = "redis-16928.c114.us-east-1-4.ec2.redns.redis-cloud.com";
+    int port = 16928;
+    String password = "EeiX8YlyA7LAx6h3RxD7ZCKVPShktB3k";
+    int database = 0;
+    private final Jedis jedis;
 
-    @Autowired
-    private StringRedisTemplate redisTemplate;
-
-    public void save(Long id,double valor ){
-        LocalDateTime localDateTime = LocalDateTime.now();
-        String fechaHoraActualStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        redisTemplate.opsForList().rightPush(String.valueOf(id),fechaHoraActualStr);
-        redisTemplate.opsForList().rightPush(String.valueOf(id),String.valueOf(valor));
-        redisTemplate.expire(String.valueOf(id),20,java.util.concurrent.TimeUnit.MINUTES);
+    public RedisService() {
+        jedis = new Jedis(host, port);
+        jedis.auth(password);
+        jedis.select(database);
     }
 
-    public List<String> getData(Long id){
-        return redisTemplate.opsForList().range(String.valueOf(id),0,-1);
+    public void save(Long id, double valor) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        String fechaHoraActualStr = localDateTime.format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+
+        // Guardar la fecha y hora actual junto con el valor en Redis
+        jedis.rpush(String.valueOf(id), fechaHoraActualStr, String.valueOf(valor));
+
+        // Establecer expiración en 20 minutos para la clave
+        jedis.expire(String.valueOf(id), 20 * 60);
+    }
+
+    public List<String> getData(Long id) {
+        return jedis.lrange(String.valueOf(id), 0, -1);
     }
 
 
