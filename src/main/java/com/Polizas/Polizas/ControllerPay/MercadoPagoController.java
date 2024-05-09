@@ -11,10 +11,7 @@ import com.mercadopago.exceptions.MPException;
 import com.mercadopago.resources.preference.Preference;
 
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -29,33 +26,33 @@ public class MercadoPagoController {
 
     @RequestMapping(value = "api/mp", method = RequestMethod.POST)
     public String getList(@RequestBody UserBuyer userBuyer){
-        if(userBuyer==null){return "error jsons:/";}
+        if(userBuyer==null){return "error jsons :/";}
         String title = userBuyer.getTitle();
         int quantity = userBuyer.getQuantity();
         int price = userBuyer.getUnit_price();
         try{
-            MercadoPagoConfig.setAccessToken("TEST-2350514321472666-042020-87f0b5e17727972d62baf5422f04107d-1780483412");
+            MercadoPagoConfig.setAccessToken(mercadoLibreToken);
           PreferenceItemRequest itemRequest = PreferenceItemRequest
                   .builder()
                   .title(title)
                   .quantity(quantity)
                   .unitPrice(new BigDecimal(price))
-                  .currencyId("CO")
+                  .currencyId("ARS")
                   .build();
           List<PreferenceItemRequest> items = new ArrayList<>();
           items.add(itemRequest);
 
             PreferenceBackUrlsRequest backUrls = PreferenceBackUrlsRequest
-                    .builder().success("https://youtube.com")
-                    .pending("https://youtube.com")
-                    .failure("https://youtube.com")
+                    .builder().success("https://www.youtube.com/")
+                    .pending("https://www.youtube.com/")
+                    .failure("https://www.youtube.com/")
                     .build();
             PreferenceRequest preferenceRequest = PreferenceRequest.builder()
                     .items(items)
                     .backUrls(backUrls)
                     .build();
 
-            PreferenceClient client=new PreferenceClient();
+            PreferenceClient client= new PreferenceClient();
 
             Preference preference=client.create(preferenceRequest);
 
